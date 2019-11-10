@@ -1,0 +1,40 @@
+{
+  "name": "hapi-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/hapi": "^18.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/inert": "^5.2.2",
+    "@hapi/vision": "^5.5.4",
+    "@types/mongodb": "^3.3.10",
+    "@types/node": "^12.12.7",
+    "eslint-plugin-node": "^10.0.0",
+    "hapi": "^18.1.0",
+    "hapi-auth-jwt2": "^8.8.0",
+    "hapi-swagger": "^10.3.0",
+    "joi": "^14.3.1",
+    "mongodb": "^3.3.3",
+    "nconf": "^0.10.0",
+    "ts-node": "^8.4.1"
+  }
+}
