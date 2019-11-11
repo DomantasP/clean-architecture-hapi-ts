@@ -1,8 +1,8 @@
 import * as Hapi from "hapi";
-import UserController from "../../interfaces/controllers/UserController";
-// import * as UserValidator from "./user-validator";
+import UserController from "../../interface_adapters/controllers/UserController";
+import * as UserValidator from "../../interface_adapters/validators/UserValidator";
 import { IServerConfigurations } from "../../config";
-import { UserRepository } from "../../interfaces/repositories/UserRepository";
+import { UserRepository } from "../../interface_adapters/repositories/UserRepository";
 import { Db } from "mongodb";
 
 export default (
@@ -12,7 +12,7 @@ export default (
 ) => {
   const userRepository = new UserRepository(database);
   const userController = new UserController(userRepository);
-  
+
   server.bind(userController);
 
   server.route({
@@ -20,12 +20,8 @@ export default (
     path: "/user",
     options: {
       handler: userController.getUser,
-      // auth: "jwt",
       tags: ["api"],
       description: "Get user info.",
-      // validate: {
-      //   headers: UserValidator.jwtValidator
-      // },
       plugins: {
         "hapi-swagger": {
           responses: {
@@ -41,18 +37,18 @@ export default (
     method: "POST",
     path: "/user",
     options: {
+      auth: false,
       handler: userController.createUser,
-      // auth: "jwt",
       tags: ["api"],
       description: "Create new user.",
-      // validate: {
-      //   headers: UserValidator.jwtValidator
-      // },
+      validate: {
+        payload: UserValidator.createUser
+      },
       plugins: {
         "hapi-swagger": {
           responses: {
-            200: { description: "User created." },
-            401: { description: "Please login." }
+            201: { description: "User created." },
+            400: { description: "Please login." }
           }
         }
       }

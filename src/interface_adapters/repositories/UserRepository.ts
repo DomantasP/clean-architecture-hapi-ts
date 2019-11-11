@@ -4,6 +4,7 @@ export interface IUserRepository {
   getUserById(id: string): Promise<User>
   createUser (user: User): Promise<User>
   doesUserExist (id: string): Promise<boolean>
+  doesUserEmailExist (email: string): Promise<boolean>
 }
 
 export class UserRepository implements IUserRepository {
@@ -17,6 +18,11 @@ export class UserRepository implements IUserRepository {
 
   async doesUserExist (id: string): Promise<boolean> {
     const user = await this.user.findOne({ _id: id }, { _id: 1 });
+    return !!user;
+  }
+
+  async doesUserEmailExist (email: string): Promise<boolean> {
+    const user = await this.user.findOne({ email }, { _id: 1 });
     return !!user;
   }
 

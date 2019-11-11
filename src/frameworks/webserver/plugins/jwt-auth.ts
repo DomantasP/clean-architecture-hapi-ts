@@ -1,6 +1,6 @@
 import { IPlugin, IPluginOptions } from "./interfaces";
 import * as Hapi from "hapi";
-import { IUserRepository, UserRepository } from "../../../interfaces/repositories/UserRepository";
+import { IUserRepository, UserRepository } from "../../../interface_adapters/repositories/UserRepository";
 import { Db } from "mongodb";
 
 export class JwtAuth implements IPlugin {
