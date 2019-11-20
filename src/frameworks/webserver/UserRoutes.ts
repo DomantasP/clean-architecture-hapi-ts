@@ -20,6 +20,7 @@ export default (
     path: "/user",
     options: {
       handler: userController.getUser,
+      auth: "jwt",
       tags: ["api"],
       description: "Get user info.",
       plugins: {

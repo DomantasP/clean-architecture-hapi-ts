@@ -1,5 +1,6 @@
 import IUserRepository from "../../application/repositories/IUserRepository";
 import * as Request from "../requests/UserRequests";
+import { IRequest } from "../requests/IRequest";
 import * as Hapi from "hapi";
 import * as Boom from "@hapi/boom";
 import User from "../../domain/entities/User";
@@ -20,8 +21,10 @@ class UserController {
     this.configs = configs;
   }
 
-  public async getUser (request: Request.IGetUserRequest, h: Hapi.ResponseToolkit) {
-    return this.user.getUser(request.payload.id);
+  public async getUser (request: IRequest, h: Hapi.ResponseToolkit) {
+    const user = await this.user.getUser(request.auth.credentials.userId);
+    console.log("user", user);
+    return user;
   }
 
   public async createUser (request: Request.ICreateUser, h: Hapi.ResponseToolkit) {

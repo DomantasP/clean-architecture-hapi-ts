@@ -9,7 +9,6 @@ export interface IGetUserRequest extends Hapi.Request {
 
 export interface ICreateUser extends Hapi.Request {
   payload: {
-    id: string;
     name: string;
     email: string;
     password: string;

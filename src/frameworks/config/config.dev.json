@@ -1,10 +1,10 @@
 {
   "database": {
-    "connectionString": "mongodb://localhost:27017/taskdb-dev"
+    "connectionString": "mongodb://localhost:27017/clean-hapi-ts"
   },
   "server": {
     "port": 3000,
     "jwtSecret": "random-secret-password",
-    "jwtExpiration": "1h"
+    "jwtExpiration": "3600000"
   }
 }

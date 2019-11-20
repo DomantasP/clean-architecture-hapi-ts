@@ -1,6 +1,5 @@
 import { IPlugin, IPluginOptions } from "./interfaces";
 import * as Hapi from "hapi";
-import IUserRepository from "../../../application/repositories/IUserRepository";
 import UserRepository from "../../../interface_adapters/repositories/UserRepository";
 import { Db } from "mongodb";
 
@@ -11,10 +10,20 @@ export class JwtAuth implements IPlugin {
 
       const repository = new UserRepository(database);
 
-      return setAuthStrategy(server, {
-        config: options.serverConfigs,
-        validate: validateUser(repository)
+      const validateUser = async (decoded: any) => {
+        const exists = await repository.doesUserExist(decoded.userId);
+      
+        if (!exists) return { isValid: false };
+        return { isValid: true };
+      };
+
+      server.auth.strategy("jwt", "jwt", {
+        key: options.serverConfigs.jwtSecret,
+        validate: validateUser,
+        verifyOptions: { algorithms: ["HS256"] }
       });
+    
+      server.auth.default("jwt");
     } catch (err) {
       console.log(`Error registering jwt plugin: ${err}`);
       throw err;
@@ -26,23 +35,10 @@ export class JwtAuth implements IPlugin {
   }
 }
 
-const validateUser = async (repository: IUserRepository) => {
-  return async (decoded: any) => {
-    const exists = await repository.doesUserExist(decoded.id);
+// const validateUser = async (repository: IUserRepository) => async (decoded: any) => {
+//   console.log("decoded", decoded);
+//   const exists = await repository.doesUserExist(decoded.id);
 
-    if (!exists) return { isValid: false };
-    return { isValid: true };
-  };
-};
-
-const setAuthStrategy = async (server, { config, validate }) => {
-  server.auth.strategy("jwt", "jwt", {
-    key: config.jwtSecret,
-    validate,
-    verifyOptions: {
-      algorithms: ["HS256"]
-    }
-  });
-
-  server.auth.default("jwt");
-};
+//   if (!exists) return { isValid: false };
+//   return { isValid: true };
+// };

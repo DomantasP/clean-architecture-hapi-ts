@@ -1,6 +1,8 @@
 import IUserRepository from "../../application/repositories/IUserRepository";
 import User from "../../domain/entities/User";
 import * as bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
+
 export default
 
 class UserRepository implements IUserRepository {
@@ -13,7 +15,7 @@ class UserRepository implements IUserRepository {
   }
 
   public async doesUserExist (id: string): Promise<boolean> {
-    const user = await this.user.findOne({ _id: id }, { _id: 1 });
+    const user = await this.user.findOne({ _id: new ObjectId(id) }, { _id: 1 });
     return !!user;
   }
 
@@ -23,7 +25,7 @@ class UserRepository implements IUserRepository {
   }
 
   public async getUserById (id: string): Promise<User> {
-    return this.user.findOne({ _id: id });
+    return this.user.findOne({ _id: new ObjectId(id) });
   }
 
   public async createUser (user: User): Promise<User> {

@@ -1,7 +1,7 @@
 import * as Hapi from "hapi";
 
 export interface ICredentials extends Hapi.AuthCredentials {
-  id: string;
+  userId: string;
 }
 
 export interface IRequestAuth extends Hapi.RequestAuth {

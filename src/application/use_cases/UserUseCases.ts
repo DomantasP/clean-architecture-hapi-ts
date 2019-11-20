@@ -29,6 +29,10 @@ export default class UserUseCases {
     
     if (!isValid) throw new AuthorizationError();
 
-    return this.token.generate({ userId: user.id });
+    return this.token.generate({ userId: user._id.toString() });
+  }
+
+  public async verifyToken (token: string): Promise<{ userId: string }> {
+    return this.token.decode(token);
   }
 }

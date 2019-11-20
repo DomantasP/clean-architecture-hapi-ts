@@ -11,7 +11,11 @@ class Jwt implements IToken {
     this.expirationTime = expirationTime;
   }
 
-  public generate (payload: object) {
+  public generate (payload: object): Promise<string> {
     return JwtLib.sign(payload, this.secret, { expiresIn: this.expirationTime });
+  }
+
+  public decode (token: string): Promise<{ userId: string}> {
+    return JwtLib.verify(token, this.secret);
   }
 }
