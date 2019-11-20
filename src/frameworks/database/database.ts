@@ -1,4 +1,4 @@
-import { IDataConfiguration } from "../../config";
+import { IDataConfiguration } from "../config";
 import { MongoClient, Db } from "mongodb";
 
 export async function init (config: IDataConfiguration): Promise<Db> {

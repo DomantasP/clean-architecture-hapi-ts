@@ -1,8 +1,8 @@
 import * as Hapi from "hapi";
 import UserController from "../../interface_adapters/controllers/UserController";
 import * as UserValidator from "../../interface_adapters/validators/UserValidator";
-import { IServerConfigurations } from "../../config";
-import { UserRepository } from "../../interface_adapters/repositories/UserRepository";
+import { IServerConfigurations } from "../config";
+import UserRepository from "../../interface_adapters/repositories/UserRepository";
 import { Db } from "mongodb";
 
 export default (
@@ -11,7 +11,7 @@ export default (
   database: Db
 ) => {
   const userRepository = new UserRepository(database);
-  const userController = new UserController(userRepository);
+  const userController = new UserController(userRepository, serverConfigs);
 
   server.bind(userController);
 
@@ -49,6 +49,27 @@ export default (
           responses: {
             201: { description: "User created." },
             400: { description: "Please login." }
+          }
+        }
+      }
+    }
+  });
+
+  server.route({
+    method: "POST",
+    path: "/auth",
+    options: {
+      auth: false,
+      handler: userController.login,
+      tags: ["api", "user"],
+      description: "Authenticate.",
+      validate: { payload: UserValidator.authUser },
+      plugins: {
+        "hapi-swagger": {
+          responses: {
+            201: { description: "User created." },
+            400: { description: "Please login." },
+            401: { description: "Incorrect credentials." }
           }
         }
       }

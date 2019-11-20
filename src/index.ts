@@ -1,6 +1,6 @@
 import * as Server from "./frameworks/webserver/server";
 import * as Database from "./frameworks/database/database";
-import * as Configs from "./config";
+import * as Configs from "./frameworks/config";
 
 const dbConfigs = Configs.getDatabaseConfig();
 const serverConfigs = Configs.getServerConfigs();

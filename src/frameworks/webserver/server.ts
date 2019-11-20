@@ -1,7 +1,7 @@
   
 import * as Hapi from "hapi";
 import * as Boom from "@hapi/boom";
-import { IServerConfigurations } from "../../config";
+import { IServerConfigurations } from "../config";
 import Users from "./UserRoutes";
 import { Db } from "mongodb";
 import registerPlugins from "./plugins";

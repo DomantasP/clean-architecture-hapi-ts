@@ -1,5 +1,5 @@
 import * as Hapi from "hapi";
-import { IServerConfigurations } from "../../../config";
+import { IServerConfigurations } from "../../config";
 import { Db } from "mongodb";
 
 export interface IPluginOptions {

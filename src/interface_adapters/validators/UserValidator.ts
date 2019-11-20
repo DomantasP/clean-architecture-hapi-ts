@@ -5,3 +5,8 @@ export const createUser = Joi.object().keys({
   name: Joi.string().required(),
   password: Joi.string().trim().required()
 });
+
+export const authUser = Joi.object().keys({
+  email: Joi.string().email().trim().required(),
+  password: Joi.string().trim().required()
+});
