@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' src/index.ts | pino-tee warn ./warn-logs > ./all-logs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -37,6 +37,8 @@
     "hapi-swagger": "^10.3.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
+    "laabr": "^5.1.5",
+    "log4js": "^6.1.0",
     "mongodb": "^3.3.3",
     "nconf": "^0.10.0",
     "ts-node": "^8.4.1"

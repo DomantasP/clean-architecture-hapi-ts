@@ -31,7 +31,7 @@ export async function init (configs: IServerConfigurations, database: Db): Promi
     }
   });
 
-  console.log("Registering plugins");
+  server.log("Registering plugins");
   await registerPlugins(server, configs, database);
 
   console.log("Registering controllers");

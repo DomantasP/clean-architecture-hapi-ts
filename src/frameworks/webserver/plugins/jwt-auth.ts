@@ -34,11 +34,3 @@ export class JwtAuth implements IPlugin {
     return { name: "JWT Authentication", version: "1.0.0" };
   }
 }
-
-// const validateUser = async (repository: IUserRepository) => async (decoded: any) => {
-//   console.log("decoded", decoded);
-//   const exists = await repository.doesUserExist(decoded.id);
-
-//   if (!exists) return { isValid: false };
-//   return { isValid: true };
-// };
