@@ -1,4 +1,4 @@
-import User from "../../domain/entities/User";
+import User from "../../domain/entities/User"
 
 export default interface IUserRepository {
   getUserById(id: string): Promise<User>
@@ -6,4 +6,4 @@ export default interface IUserRepository {
   doesUserExist (id: string): Promise<boolean>
   doesUserEmailExist (email: string): Promise<boolean>
   verifyPassword (email: string, password: string): Promise<{ isValid: boolean, user: User}>
-};
+}

@@ -1,6 +1,6 @@
-import * as Hapi from "hapi";
-import { IServerConfigurations } from "../../config";
-import { Db } from "mongodb";
+import * as Hapi from "hapi"
+import { IServerConfigurations } from "../../config"
+import { Db } from "mongodb"
 
 export interface IPluginOptions {
   serverConfigs: IServerConfigurations;

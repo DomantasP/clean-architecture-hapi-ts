@@ -1,19 +1,19 @@
-import * as Hapi from "hapi";
-import UserController from "../../interface_adapters/controllers/UserController";
-import * as UserValidator from "../../interface_adapters/validators/UserValidator";
-import { IServerConfigurations } from "../config";
-import UserRepository from "../../interface_adapters/repositories/UserRepository";
-import { Db } from "mongodb";
+import * as Hapi from "hapi"
+import UserController from "../../interface_adapters/controllers/UserController"
+import * as UserValidator from "../../interface_adapters/validators/UserValidator"
+import { IServerConfigurations } from "../config"
+import UserRepository from "../../interface_adapters/repositories/UserRepository"
+import { Db } from "mongodb"
 
 export default (
   server: Hapi.Server,
   serverConfigs: IServerConfigurations,
   database: Db
 ) => {
-  const userRepository = new UserRepository(database);
-  const userController = new UserController(userRepository, serverConfigs);
+  const userRepository = new UserRepository(database)
+  const userController = new UserController(userRepository, serverConfigs)
 
-  server.bind(userController);
+  server.bind(userController)
 
   server.route({
     method: "GET",
@@ -32,7 +32,7 @@ export default (
         }
       }
     }
-  });
+  })
 
   server.route({
     method: "POST",
@@ -54,7 +54,7 @@ export default (
         }
       }
     }
-  });
+  })
 
   server.route({
     method: "POST",
@@ -75,5 +75,5 @@ export default (
         }
       }
     }
-  });
+  })
 };

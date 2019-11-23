@@ -1,5 +1,5 @@
-import * as Hapi from "hapi";
-import { IRequest } from "./IRequest";
+import * as Hapi from "hapi"
+import { IRequest } from "./IRequest"
 
 export interface IGetUserRequest extends Hapi.Request {
   payload: {

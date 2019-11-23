@@ -1,13 +1,13 @@
-import IUserRepository from "../../application/repositories/IUserRepository";
-import * as Request from "../requests/UserRequests";
-import { IRequest } from "../requests/IRequest";
-import * as Hapi from "hapi";
-import * as Boom from "@hapi/boom";
-import User from "../../domain/entities/User";
-import UserUseCases from "../../application/use_cases/UserUseCases";
-import { ValidationError, AuthorizationError } from "../../application/errors/Errors";
-import Jwt from "../security/Jwt";
-import { IServerConfigurations } from "../../frameworks/config";
+import IUserRepository from "../../application/repositories/IUserRepository"
+import * as Request from "../requests/UserRequests"
+import { IRequest } from "../requests/IRequest"
+import * as Hapi from "hapi"
+import * as Boom from "@hapi/boom"
+import User from "../../domain/entities/User"
+import UserUseCases from "../../application/use_cases/UserUseCases"
+import { ValidationError, AuthorizationError } from "../../application/errors/Errors"
+import Jwt from "../security/Jwt"
+import { IServerConfigurations } from "../../frameworks/config"
 
 export default
 
@@ -16,40 +16,39 @@ class UserController {
   private readonly configs: IServerConfigurations
 
   constructor (repository: IUserRepository, configs: IServerConfigurations) {
-    const jwtToken = new Jwt(configs.jwtSecret, parseInt(configs.jwtExpiration));
-    this.user = new UserUseCases(repository, jwtToken);
-    this.configs = configs;
+    const jwtToken = new Jwt(configs.jwtSecret, parseInt(configs.jwtExpiration))
+    this.user = new UserUseCases(repository, jwtToken)
+    this.configs = configs
   }
 
   public async getUser (request: IRequest, h: Hapi.ResponseToolkit) {
-    const user = await this.user.getUser(request.auth.credentials.userId);
-    console.log("user", user);
-    return user;
+    const user = await this.user.getUser(request.auth.credentials.userId)
+    return user
   }
 
   public async createUser (request: Request.ICreateUser, h: Hapi.ResponseToolkit) {
-    const user: User = request.payload;
+    const user: User = request.payload
 
     try {
-      await this.user.createUser(user);
+      await this.user.createUser(user)
     } catch (e) {
-      if (e instanceof ValidationError) return Boom.badRequest(e.message);
-      else return Boom.internal();
+      if (e instanceof ValidationError) return Boom.badRequest(e.message)
+      else return Boom.internal()
     }
 
-    return h.response().code(201);
+    return h.response().code(201)
   }
 
   public async login (request: Request.ILoginRequest, h: Hapi.ResponseToolkit) {
-    const { email, password } = request.payload;
+    const { email, password } = request.payload
 
     try {
-      const token = await this.user.getToken(email, password);
+      const token = await this.user.getToken(email, password)
     
-      return { token, email };
+      return { token, email }
     } catch (e) {
-      if (e instanceof AuthorizationError) return Boom.unauthorized();
-      else return Boom.internal();
+      if (e instanceof AuthorizationError) return Boom.unauthorized()
+      else return Boom.internal()
     }
   }
 }

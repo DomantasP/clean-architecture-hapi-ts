@@ -1,8 +1,8 @@
-import * as Hapi from "hapi";
-import { IPlugin } from "./interfaces";
-const Vision = require("@hapi/vision");
-const Inert = require("@hapi/inert");
-const Swagger = require("hapi-swagger");
+import * as Hapi from "hapi"
+import { IPlugin } from "./interfaces"
+const Vision = require("@hapi/vision")
+const Inert = require("@hapi/inert")
+const Swagger = require("hapi-swagger")
 
 export class SwaggerPlugin implements IPlugin {
   async register (server: Hapi.Server): Promise<void> {
@@ -33,13 +33,13 @@ export class SwaggerPlugin implements IPlugin {
             documentationPath: "/docs"
           }
         }
-      ]);
+      ])
     } catch (err) {
-      console.log(`Error registering swagger plugin: ${err}`);
+      console.log(`Error registering swagger plugin: ${err}`)
     }
   }
 
   info () {
-    return { name: "Swagger Documentation", version: "1.0.0" };
+    return { name: "Swagger Documentation", version: "1.0.0" }
   }
 }
