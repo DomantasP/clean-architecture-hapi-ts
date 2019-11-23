@@ -7,7 +7,21 @@ export class Logger implements IPlugin {
     try {
       await server.register({
         plugin: laabr,
-        options: {}
+        options: {
+          formats: {
+            onPostStart: ":time[utc] :start :level :message",
+            response: "{time::time[utc], method::method, origin::remoteAddress, url::url, status::status, environemnt::environment, message::message}",
+            log: "{ time::time[utc] :environment :host :host[port] }"
+          },
+          tokens: { start: () => "[start]" },
+          indent: 0,
+          hapiPino: {
+            logPayload: false
+          },
+          pino: {
+            timestamp: false
+          }
+        }
       });
     } catch (err) {
       console.log(`Error registering laabr plugin: ${err}`);
