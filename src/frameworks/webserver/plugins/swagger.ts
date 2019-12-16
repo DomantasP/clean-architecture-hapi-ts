@@ -20,10 +20,6 @@ export class SwaggerPlugin implements IPlugin {
             },
             tags: [
               {
-                name: "tasks",
-                description: "Api tasks interface."
-              },
-              {
                 name: "user",
                 description: "Api users interface."
               }
